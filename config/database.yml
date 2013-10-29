@@ -13,10 +13,10 @@ test:
   pool: 5
   timeout: 5000
 
-production:
-  adapter: postgresql
-  encoding: unicode
-  database: blog_development
-  pool: 5
-  username: rbates
-  password:
+# production:
+#   adapter: postgresql
+#   encoding: unicode
+#   database: blog_development
+#   pool: 5
+#   username: rbates
+#   password:
