@@ -1,0 +1,7 @@
+<strong>Name: </strong> <%= @restaurant.name %><br>
+<strong>Description: </strong> <%= @restaurant.description %><br>
+<strong>Full Adress: </strong> <%= @restaurant.full_address %><br>
+<strong>Phone number: </strong> <%= @restaurant.phone_number %><br>
+<%= link_to "Back", restaurants_path %>	
+<%= link_to 'Edit', edit_restaurant_path(@restaurant) %>
+<%= link_to 'Destroy', restaurant_path(@restaurant), method: :delete, data: {confirm: "Are you sure?"} %>
