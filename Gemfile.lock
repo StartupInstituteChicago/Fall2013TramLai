@@ -137,7 +137,7 @@ DEPENDENCIES
   pg
   rails (= 4.0.0)
   rails_12factor
-  rspec-rails (~> 2.0)
+  rspec-rails
   sass-rails (~> 4.0.0)
   sdoc
   sqlite3

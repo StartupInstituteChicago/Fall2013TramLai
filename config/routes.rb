@@ -1,7 +1,7 @@
 Simple_restaurant::Application.routes.draw do
  
   resources :restaurants
-  root to 'welcome#index'
+  root 'welcome#index'
     
   # Prefix Verb   URI Pattern                     Controller#Action
   #     restaurants GET    /restaurants(.:format)          restaurants#index
