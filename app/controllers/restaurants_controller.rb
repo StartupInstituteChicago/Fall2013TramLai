@@ -5,7 +5,7 @@ class RestaurantsController < ApplicationController
   
   
   def create
-    @restaurant = Restaurant.new(params[:restaurant].permit(:name,:description,:full_address,:phone_number))
+    @restaurant = Restaurant.new(restaurant_params)
     if @restaurant.save
       redirect_to @restaurant
     else
@@ -29,7 +29,7 @@ class RestaurantsController < ApplicationController
   
   def update
     @restaurant = Restaurant.find(params[:id])
-    if @restaurant.update(params[:restaurant].permit(:name,:description,:full_address,:phone_number))
+    if @restaurant.update(restaurant_params)
       redirect_to @restaurant
     else
       render 'edit'
@@ -41,4 +41,16 @@ class RestaurantsController < ApplicationController
     @restaurant.destroy
     redirect_to restaurants_path
   end
+  
+  # def destroy_image
+#     @restaurant = Restaurant.find(params[:id])
+#     @restaurant.image = ""
+#     redirect_to @restaurant
+#   end 
+  
+  private
+  def restaurant_params
+    params.require(:restaurant).permit(:name,:description,:full_address,:phone_number,:image,:image_url, :remove_image)
+  end
+  
 end

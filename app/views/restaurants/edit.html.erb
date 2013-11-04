@@ -1,5 +1,5 @@
 <h1>Editing restaurant:</h1>
-<%= form_for @restaurant do |f| %>
+<%= form_for @restaurant, :html => {:multipart => true} do |f| %>
 
 <p>	
 	<%= f.label :name %>
@@ -17,6 +17,17 @@
 <p>
 	<%= f.label :phone_number %>
 	<%= f.text_field :phone_number %>
+</p>
+
+<p>
+	<%= f.file_field :image %>
+</p>
+<%= @restaurant.image_url %>
+<p>
+<label>
+  <%= f.check_box :remove_image %>
+  Remove image
+</label>
 </p>
 
 <p>

@@ -1,3 +1,7 @@
+<%= image_tag @restaurant.image_url(:thumb) %> <br>
+<%= link_to "Edit image", edit_restaurant_path(@restaurant)%> <br>
+
+
 <strong>Name: </strong> <%= @restaurant.name %><br>
 <strong>Description: </strong> <%= @restaurant.description %><br>
 <strong>Full Adress: </strong> <%= @restaurant.full_address %><br>
