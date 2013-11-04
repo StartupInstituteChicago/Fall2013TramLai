@@ -3,13 +3,18 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.0'
 
-gem 'twitter-bootstrap-rails'
+gem "therubyracer"
+gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
+gem "twitter-bootstrap-rails"
 
 # Use sqlite3 as the database for Active Record
 group :development do
   gem 'sqlite3'
 end
 
+gem "carrierwave"
+
+gem 'rmagick'
 
 group :production do
   gem 'pg'
@@ -18,7 +23,15 @@ end
 
 group :test do
   gem "rspec-rails"
+  gem "factory_girl_rails", "~> 4.0"
+  gem "faker"
+  gem "capybara"
+  gem "guard-rspec"
+  gem "launchy"
 end
+
+
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 

@@ -1,7 +1,7 @@
 <h1>Editing restaurant:</h1>
-<%= form_for :restaurant, url: restaurant_path(@restaurant.id), method: :patch do |f| %>
+<%= form_for @restaurant do |f| %>
 
-<p>
+<p>	
 	<%= f.label :name %>
 	<%= f.text_field :name %>
 </p>
