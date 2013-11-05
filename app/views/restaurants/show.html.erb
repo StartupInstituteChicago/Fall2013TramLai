@@ -6,6 +6,9 @@
 <strong>Description: </strong> <%= @restaurant.description %><br>
 <strong>Full Adress: </strong> <%= @restaurant.full_address %><br>
 <strong>Phone number: </strong> <%= @restaurant.phone_number %><br>
+<%= image_tag "http://maps.googleapis.com/maps/api/staticmap?center=#{@restaurant.full_address}&markers=color:red|#{@restaurant.full_address}&zoom=14&size=200x200&sensor=false&key=AIzaSyDfXK7ij2akV_gTsZfSietmxzxsa5qBtCo" %> <br>
+
 <%= link_to "Back", restaurants_path %>	
 <%= link_to 'Edit', edit_restaurant_path(@restaurant) %>
 <%= link_to 'Destroy', restaurant_path(@restaurant), method: :delete, data: {confirm: "Are you sure?"} %>
+<%= link_to "Download Menu"%>

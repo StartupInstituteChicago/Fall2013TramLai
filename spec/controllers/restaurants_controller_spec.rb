@@ -14,8 +14,8 @@ describe RestaurantsController do
     end
     
     it "loads all of the restaurants into @restaurants" do
-      restaurant1 = FactoryGirl.build(:restaurant)
-      restaurant2 = FactoryGirl.build(:restaurant)
+      restaurant1 = FactoryGirl.create(:restaurant)
+      restaurant2 = FactoryGirl.create(:restaurant)
       get :index   
       expect(assigns(:restaurants)).to match_array([restaurant1, restaurant2])
     end
@@ -46,7 +46,7 @@ describe RestaurantsController do
  #    end
     
     it "should create a restaurant" do
-      post :create, :restaurant => FactoryGirl.create(:restaurant)
+      post :create, restaurant: FactoryGirl.build(:restaurant)
       response.should redirect_to restaurant_path(:restaurant)
     end
     

@@ -22,9 +22,10 @@
 </p>
 
 <p>
+	<li>Upload an image</li>
 	<%= f.file_field :image %>
 </p>
-<%= @restaurant.image_url %>
+
 <p>
 	
 <p>
@@ -36,6 +37,14 @@
   <%= f.check_box :remove_image %>
   Remove image
 </label>
+
+<p>
+	<li>Upload a menu</li>
+	<%= f.file_field :menu %>
+</p>
+<%= @restaurant.menu_url %>
+<p>
+
 </p>
 
 <p>
