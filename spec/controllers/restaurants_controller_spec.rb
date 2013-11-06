@@ -44,13 +44,12 @@ describe RestaurantsController do
   describe "POST #create" do
 
     it "should create a restaurant" do
-      post :create
-      response.should redirect_to restaurant_path(assigns[:restaurant])
-      
+      post :create, restaurant: {name: "McDonalds", description: "So fatty but cheap and convenient", full_address: "1234 W Argyle", phone_numer: "1234567890'"}
+      response.should be_success
     end
 
-    it "should render template new" do
-      post :create, restaurant: FactoryGirl.create(:invalid_restaurant)
+    it "should render template new if there were any invalid params" do
+      post :create, restaurant: {name: "McDonalds", description: "So fatty but cheap and convenient", full_address: "1234 W Argyle", phone_numer: "12345690'"}
       response.should render_template(:new)
     end
     
@@ -69,15 +68,14 @@ describe RestaurantsController do
   describe "PATCH #update" do
     it "should direct to an updated page" do
       restaurant = FactoryGirl.create(:restaurant)
-      p restaurant
-      put :update, {id: restaurant.id, restaurant: restaurant}
-      response.should redirect_to restaurant_path(:restaurant)
+      put :update, {id: restaurant.id, restaurant: {name: restaurant.name, description: restaurant.description, full_address: restaurant.full_address, phone_number: restaurant.phone_number}}
+      response.should redirect_to restaurant_path(restaurant)
     end
 
-    it "should render the edit template" do
+    it "should render the edit template if the input params are invalid" do
       restaurant = FactoryGirl.create(:restaurant)
-      put :update, id: 1
-      reponse.should render_template(:show)
+      put :update,  {id: restaurant.id, restaurant: {name: restaurant.name, description: restaurant.description, full_address: restaurant.full_address, phone_number: "123456"}}
+      response.should render_template('edit')
     end
 
 
