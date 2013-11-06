@@ -41,17 +41,10 @@ class RestaurantsController < ApplicationController
     @restaurant.destroy
     redirect_to restaurants_path
   end
-  
-  # def destroy_image
-#     @restaurant = Restaurant.find(params[:id])
-#     @restaurant.image = ""
-#     redirect_to @restaurant
-#   end 
-  
+
   private
   def restaurant_params
-    p params.require(:restaurant)
-    params.require(:restaurant).permit(:name,:description,:full_address,:phone_number,:image,:image_url, :remove_image,:remote_image_url,:menu)
+    params.require(:restaurant).permit(:id,:name,:description,:full_address,:phone_number,:image,:image_url, :remove_image,:remote_image_url,:menu)
   end
   
 end

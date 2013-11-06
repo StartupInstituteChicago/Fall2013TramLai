@@ -8,8 +8,4 @@ class Restaurant < ActiveRecord::Base
   mount_uploader :menu, MenuUploader
   
   
-  def destroy_image
-    self.image = ""
-    self.save
-  end
 end

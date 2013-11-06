@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe RestaurantsController do
+
   describe "GET #index" do
     it "responds successfully  with an http 200 status code" do
       get :index
@@ -17,7 +18,7 @@ describe RestaurantsController do
       restaurant1 = FactoryGirl.create(:restaurant)
       restaurant2 = FactoryGirl.create(:restaurant)
       get :index   
-      expect(assigns(:restaurants)).to match_array([restaurant1, restaurant2])
+      expect(assigns[:restaurants]).to match_array([restaurant1, restaurant2])
     end
   end
   
@@ -41,48 +42,59 @@ describe RestaurantsController do
   end
   
   describe "POST #create" do
-    # before :each do
- #      @attr = {name: "Tram", description: "Awesome place to eat", full_address: "123 Argyle st", phone_number: "1234567890"}
- #    end
-    
+
     it "should create a restaurant" do
-      post :create, restaurant: FactoryGirl.build(:restaurant)
-      response.should redirect_to restaurant_path(:restaurant)
+      post :create
+      response.should redirect_to restaurant_path(assigns[:restaurant])
+      
     end
-    
-# it "should render 'view' if restaurant is not saved"
-#       post :create, :restaurant => @attr, :restaurant.save == false
-#       response.should render_template(:new)
-#     end
+
+    it "should render template new" do
+      post :create, restaurant: FactoryGirl.create(:invalid_restaurant)
+      response.should render_template(:new)
+    end
     
   end
   
   describe "GET #edit" do
     it "should go to the edit page for that restaurant" do
-      get :edit
-      response.should redirect_to edit_restaurant_path(:restaurant)
+      restaurant = FactoryGirl.create(:restaurant)
+      get :edit, id: 1
+      expect(assigns[:restaurant]).to eq restaurant
     end
     
   end
   
   
   describe "PATCH #update" do
-    it "should render the edit template" do
-      put :update
-      response.should render_template('edit')
+    it "should direct to an updated page" do
+      restaurant = FactoryGirl.create(:restaurant)
+      p restaurant
+      put :update, {id: restaurant.id, restaurant: restaurant}
+      response.should redirect_to restaurant_path(:restaurant)
     end
+
+    it "should render the edit template" do
+      restaurant = FactoryGirl.create(:restaurant)
+      put :update, id: 1
+      reponse.should render_template(:show)
+    end
+
+
   end
   
   describe "GET #show" do
     it "should show the correct restaurant when given a valid restaurant id" do
-      get :show
-      response.should redirect_to restaurant_path(:restaurant)
+      restaurant = FactoryGirl.create(:restaurant)
+      get :show, id: 1
+      expect(assigns[:restaurant]).to eq restaurant
     end
         
-    # it "should raise error when given an invalid restaurant id" do
-    #   get :show
-    #   
-    # end
+    it "should raise error when given an invalid restaurant id" do
+      expect{
+      get :show, id: 1
+      }.to raise_error(ActiveRecord::RecordNotFound)
+    end
   end
   
   
