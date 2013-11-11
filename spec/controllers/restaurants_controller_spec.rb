@@ -22,20 +22,21 @@ describe RestaurantsController do
   end
   
   describe "GET #new" do
-    it "responds successfully  with an http 200 status code" do
+    it "responds successfully  with an http 302 status code" do
       get :new
-      expect(response).to be_success
-      response.status.should eql 200
+      response.status.should eql 302
     end
   
     it "renders the new template if owner signs in" do
       owner = FactoryGirl.create(:owner)
+      sign_in owner
       get :new
       expect(response).to render_template(:new)
     end
     
     it "assigns a new restaurant if owner signs in" do
       owner = FactoryGirl.create(:owner)
+      sign_in owner
       get :new 
       expect(assigns(:restaurant)).to_not be_nil
     end
@@ -51,12 +52,14 @@ describe RestaurantsController do
 
     it "should create a restaurant if owner signs in" do
       owner = FactoryGirl.create(:owner)
+      sign_in owner
       post :create, restaurant: {name: "McDonalds", description: "So fatty but cheap and convenient", full_address: "1234 W Argyle", phone_numer: "1234567890'"}
       response.should be_success
     end
 
     it "should render template new if owner signed in but there were any invalid params" do
       owner = FactoryGirl.create(:owner)
+      sign_in owner
       post :create, restaurant: {name: "McDonalds", description: "So fatty but cheap and convenient", full_address: "1234 W Argyle", phone_numer: "12345690'"}
       response.should render_template(:new)
     end
@@ -71,7 +74,9 @@ describe RestaurantsController do
   describe "GET #edit" do
     it "should find a restaurant if the owner of that restaurant signs in" do
       owner = FactoryGirl.create(:owner)
+      sign_in owner
       restaurant = FactoryGirl.create(:restaurant)
+      current_owner = restaurant.owner
       get :edit, id: restaurant.id
       expect(assigns[:restaurant]).to eq restaurant
     end
@@ -82,7 +87,9 @@ describe RestaurantsController do
   describe "PATCH #update" do
     it "should direct to an updated page if the owner of that restaurant signs in" do
       owner = FactoryGirl.create(:owner)
+      sign_in owner
       restaurant = FactoryGirl.create(:restaurant)    
+      current_owner = restaurant.owner
       put :update, {id: restaurant.id, restaurant: {name: restaurant.name, description: restaurant.description, full_address: restaurant.full_address, phone_number: restaurant.phone_number}}
       response.should redirect_to restaurant_path(restaurant)
     end
