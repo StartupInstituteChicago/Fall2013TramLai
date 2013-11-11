@@ -4,6 +4,7 @@ class Restaurant < ActiveRecord::Base
 	validates :description, presence: true, length: {minimum: 10}
 	validates :full_address, presence: true
 	validates :phone_number, presence: true, length: {is: 10}
+	validates :owner, presence: true
 	mount_uploader :image, ImageUploader
 	mount_uploader :menu, MenuUploader 
 end

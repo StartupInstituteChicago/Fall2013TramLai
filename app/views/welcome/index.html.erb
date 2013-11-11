@@ -1,6 +1,7 @@
 <% if owner_signed_in? %>
+<center><h3>Welcome, <%= current_owner.name %> !</h3></center>
+<h4>You have succesfully signed in</h4>
 
-<h3>You have succesfully signed in</h3>
 <%= link_to "Manage your restaurant", restaurants_path%><br>
 <%= link_to "Sign Out", destroy_owner_session_path, :method => :delete %>
 
