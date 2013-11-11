@@ -1,7 +1,7 @@
 <%= image_tag @restaurant.image_url(:masthead) %> <br>
 <%= link_to "Edit image", edit_restaurant_path(@restaurant)%> <br>
 
-
+<strong>Owner's name:</strong> <%= @restaurant.owner.name%><br>
 <strong>Name: </strong> <%= @restaurant.name %><br>
 <strong>Description: </strong> <%= @restaurant.description %><br>
 <strong>Full Adress: </strong> <%= @restaurant.full_address %><br>

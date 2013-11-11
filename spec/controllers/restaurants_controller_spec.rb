@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe RestaurantsController do
+
   describe "GET #index" do
     it "responds successfully  with an http 200 status code" do
       get :index
@@ -12,13 +13,12 @@ describe RestaurantsController do
       get :index
       response.should render_template("index")
     end
-    
+
     it "loads all of the restaurants into @restaurants" do
-      restaurant1 = FactoryGirl.create(:restaurant)
-      restaurant2 = FactoryGirl.create(:restaurant)
       get :index   
-      expect(assigns(:restaurants)).to match_array([restaurant1, restaurant2])
+      expect(assigns[:restaurants]).to eq Restaurant.all
     end
+ 
   end
   
   describe "GET #new" do
@@ -28,61 +28,78 @@ describe RestaurantsController do
       response.status.should eql 200
     end
   
-    it "renders the new template" do
+    it "renders the new template if owner signs in" do
+      owner = FactoryGirl.create(:owner)
       get :new
-      expect(response).to render_template("new")
+      expect(response).to render_template(:new)
     end
     
-    it "assigns a new restaurant" do
+    it "assigns a new restaurant if owner signs in" do
+      owner = FactoryGirl.create(:owner)
       get :new 
       expect(assigns(:restaurant)).to_not be_nil
+    end
+
+    it "should redirect to the sign in page if owner does not sign in" do
+      get :new 
+      response.should redirect_to new_owner_session_path
     end
     
   end
   
   describe "POST #create" do
-    # before :each do
- #      @attr = {name: "Tram", description: "Awesome place to eat", full_address: "123 Argyle st", phone_number: "1234567890"}
- #    end
-    
-    it "should create a restaurant" do
-      post :create, restaurant: FactoryGirl.build(:restaurant)
-      response.should redirect_to restaurant_path(:restaurant)
+
+    it "should create a restaurant if owner signs in" do
+      owner = FactoryGirl.create(:owner)
+      post :create, restaurant: {name: "McDonalds", description: "So fatty but cheap and convenient", full_address: "1234 W Argyle", phone_numer: "1234567890'"}
+      response.should be_success
     end
-    
-# it "should render 'view' if restaurant is not saved"
-#       post :create, :restaurant => @attr, :restaurant.save == false
-#       response.should render_template(:new)
-#     end
+
+    it "should render template new if owner signed in but there were any invalid params" do
+      owner = FactoryGirl.create(:owner)
+      post :create, restaurant: {name: "McDonalds", description: "So fatty but cheap and convenient", full_address: "1234 W Argyle", phone_numer: "12345690'"}
+      response.should render_template(:new)
+    end
+
+    it "should redirect to the sign in page if owner does not sign in" do
+      post :create, restaurant: {name: "McDonalds", description: "So fatty but cheap and convenient", full_address: "1234 W Argyle", phone_numer: "12345690'"}
+      response.should redirect_to new_owner_session_path
+    end
     
   end
   
   describe "GET #edit" do
-    it "should go to the edit page for that restaurant" do
-      get :edit
-      response.should redirect_to edit_restaurant_path(:restaurant)
+    it "should find a restaurant if the owner of that restaurant signs in" do
+      owner = FactoryGirl.create(:owner)
+      restaurant = FactoryGirl.create(:restaurant)
+      get :edit, id: restaurant.id
+      expect(assigns[:restaurant]).to eq restaurant
     end
     
   end
   
   
   describe "PATCH #update" do
-    it "should render the edit template" do
-      put :update
-      response.should render_template('edit')
+    it "should direct to an updated page if the owner of that restaurant signs in" do
+      owner = FactoryGirl.create(:owner)
+      restaurant = FactoryGirl.create(:restaurant)    
+      put :update, {id: restaurant.id, restaurant: {name: restaurant.name, description: restaurant.description, full_address: restaurant.full_address, phone_number: restaurant.phone_number}}
+      response.should redirect_to restaurant_path(restaurant)
     end
   end
   
   describe "GET #show" do
     it "should show the correct restaurant when given a valid restaurant id" do
-      get :show
-      response.should redirect_to restaurant_path(:restaurant)
+      restaurant = FactoryGirl.create(:restaurant)
+      get :show, id: restaurant.id
+      expect(assigns[:restaurant]).to eq restaurant
     end
         
-    # it "should raise error when given an invalid restaurant id" do
-    #   get :show
-    #   
-    # end
+    it "should raise error when given an invalid restaurant id" do
+      expect{
+      get :show, id: -1
+      }.to raise_error(ActiveRecord::RecordNotFound)
+    end
   end
   
   

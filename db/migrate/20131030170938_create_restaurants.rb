@@ -7,5 +7,6 @@ class CreateRestaurants < ActiveRecord::Migration
       t.string :phone_number
       t.timestamps
     end
+
   end
 end
