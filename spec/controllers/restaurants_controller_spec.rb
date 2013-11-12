@@ -72,11 +72,10 @@ describe RestaurantsController do
   end
   
   describe "GET #edit" do
-    it "should find a restaurant if the owner of that restaurant signs in" do
+    it "should edit a restaurant if the owner of that restaurant is signed in" do
       owner = FactoryGirl.create(:owner)
       sign_in owner
-      restaurant = FactoryGirl.create(:restaurant)
-      current_owner = restaurant.owner
+      restaurant = FactoryGirl.create(:restaurant, owner: owner)
       get :edit, id: restaurant.id
       expect(assigns[:restaurant]).to eq restaurant
     end
@@ -88,8 +87,7 @@ describe RestaurantsController do
     it "should direct to an updated page if the owner of that restaurant signs in" do
       owner = FactoryGirl.create(:owner)
       sign_in owner
-      restaurant = FactoryGirl.create(:restaurant)    
-      current_owner = restaurant.owner
+      restaurant = FactoryGirl.create(:restaurant, owner: owner)    
       put :update, {id: restaurant.id, restaurant: {name: restaurant.name, description: restaurant.description, full_address: restaurant.full_address, phone_number: restaurant.phone_number}}
       response.should redirect_to restaurant_path(restaurant)
     end
@@ -97,7 +95,8 @@ describe RestaurantsController do
   
   describe "GET #show" do
     it "should show the correct restaurant when given a valid restaurant id" do
-      restaurant = FactoryGirl.create(:restaurant)
+      owner = FactoryGirl.create(:owner)
+      restaurant = FactoryGirl.create(:restaurant, owner: owner)
       get :show, id: restaurant.id
       expect(assigns[:restaurant]).to eq restaurant
     end

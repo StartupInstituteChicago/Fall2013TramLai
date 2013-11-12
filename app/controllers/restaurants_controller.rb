@@ -74,7 +74,9 @@ class RestaurantsController < ApplicationController
 
   private
   def restaurant_params
-    params.require(:restaurant).permit(:name,:description,:full_address,:phone_number,:image,:image_url, :remove_image,:remote_image_url,:menu)
+    params.require(:restaurant).permit(:name,:description,:full_address,:phone_number,
+      :image,:image_url, :remove_image,:remote_image_url,:menu, 
+      reservation: [:email, :requested_date_time, :message])
   end
 
   def not_sign_in

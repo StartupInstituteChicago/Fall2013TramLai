@@ -22,7 +22,8 @@
 		<td><%= link_to "Show", restaurant_path(restaurant) %></td>
 		<% if restaurant.owner == current_owner %>
 		<td><%= link_to "Edit", edit_restaurant_path(restaurant) %></td>
-		<td><%= link_to "Destroy",restaurant_path(restaurant), method: :delete, data: {confirm: "Are you sure?"} %></td>
+		<td><%= link_to "Destroy", restaurant_path(restaurant), method: :delete, data: {confirm: "Are you sure?"} %></td>
+		<td><%= link_to "Show Reservations", restaurant_reservations_path(restaurant) %></td>
 		
 		
 		
@@ -32,7 +33,6 @@
 	</tr>
 	<% end %>
 </table>
-
 
 		
 <p>

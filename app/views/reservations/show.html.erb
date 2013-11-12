@@ -1,0 +1,8 @@
+<h2>Here is your reservation:</h2>
+<strong>Your email: </strong><%= @reservation.email %><br>
+<strong>Date/Time: </strong><%= @reservation.requested_date_time %><br>
+<strong>Message: </strong><%= @reservation.message %><br>
+<%= link_to "Back", restaurant_path(@reservation.restaurant) %>	
+
+
+

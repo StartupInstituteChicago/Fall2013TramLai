@@ -1,14 +1,15 @@
 <%= image_tag @restaurant.image_url(:masthead) %> <br>
 <%= link_to "Edit image", edit_restaurant_path(@restaurant)%> <br>
 
-<strong>Owner's name:</strong> <%= @restaurant.owner.name%><br>
+<strong>Owner's name:</strong><%= @restaurant.owner.name%><br>
 <strong>Name: </strong> <%= @restaurant.name %><br>
 <strong>Description: </strong> <%= @restaurant.description %><br>
 <strong>Full Adress: </strong> <%= @restaurant.full_address %><br>
 <strong>Phone number: </strong> <%= @restaurant.phone_number %><br>
 <%= image_tag "http://maps.googleapis.com/maps/api/staticmap?center=#{@restaurant.full_address}&markers=color:red|#{@restaurant.full_address}&zoom=14&size=200x200&sensor=false&key=AIzaSyDfXK7ij2akV_gTsZfSietmxzxsa5qBtCo" %> <br>
-
+<h3><%= link_to "Make a reservation", new_restaurant_reservation_path(@restaurant) %></h3>
 <%= link_to "Back", restaurants_path %>	
 <%= link_to 'Edit', edit_restaurant_path(@restaurant) %>
 <%= link_to 'Destroy', restaurant_path(@restaurant), method: :delete, data: {confirm: "Are you sure?"} %>
 <%= link_to "Download Menu"%>
+
