@@ -9,6 +9,7 @@ class ReservationsController < ApplicationController
 		@restaurant = Restaurant.find(params[:restaurant_id])
 		@reservation = @restaurant.reservations.build(reservation_params)
 		if @reservation.save
+			ReservationMailer.reservation_notification(@reservation).deliver	
 			redirect_to restaurant_reservation_path(@reservation.restaurant_id, @reservation.id)
 		else
 			render "new"
