@@ -6,6 +6,8 @@ Simple_restaurant::Application.routes.draw do
     resources :reservations
   end
   root 'welcome#index'
+
+  get "/owners/dashboard" => 'owners#dashboard'
   
   
 #   Prefix Verb   URI Pattern                                                 Controller#Action

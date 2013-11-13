@@ -33,10 +33,10 @@ ActiveRecord::Schema.define(version: 20131111205921) do
   add_index "owners", ["reset_password_token"], name: "index_owners_on_reset_password_token", unique: true
 
   create_table "reservations", force: true do |t|
-    t.string  "email"
-    t.string  "requested_date_time"
-    t.text    "message"
-    t.integer "restaurant_id"
+    t.string   "email"
+    t.datetime "requested_date_time"
+    t.text     "message"
+    t.integer  "restaurant_id"
   end
 
   create_table "restaurants", force: true do |t|
