@@ -1,6 +1,7 @@
 <h1>Listing restaurants:</h1>
 <%= link_to "Adding New Restaurant", new_restaurant_path %>
 
+
 <table>
 	<tr>
 		<th>Image</th>
@@ -19,12 +20,32 @@
 		<td><%= restaurant.full_address %></td>
 		<td><%= restaurant.phone_number %></td>
 		<td><%= link_to "Show", restaurant_path(restaurant) %></td>
+		<% if restaurant.owner == current_owner %>
 		<td><%= link_to "Edit", edit_restaurant_path(restaurant) %></td>
+<<<<<<< HEAD
 		<td><%= link_to "Destroy",restaurant_path(restaurant), method: :delete, data: {confirm: "Are you sure?"	} %></td>
+=======
+		<td><%= link_to "Destroy", restaurant_path(restaurant), method: :delete, data: {confirm: "Are you sure?"} %></td>
+		<td><%= link_to "Show Reservations", restaurant_reservations_path(restaurant) %></td>
+		
+		
+		
+		<% end %>
+
+
+>>>>>>> lab4
 	</tr>
 	<% end %>
-	
-	
 </table>
+
+		
+<p>
+<% if owner_signed_in? %>
+<%= link_to "Sign Out", destroy_owner_session_path, method: :delete %>
+<% end %>
+</p>
+
+	
+	
 
 

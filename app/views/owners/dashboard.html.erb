@@ -1,0 +1,37 @@
+<% if @restaurants_hash.empty? %>
+<h3> You currently don't have any restaurant </h3>
+<% else %>
+<h1>Your restaurant:</h1>
+
+
+<table>
+	<tr>
+		<th>Image</th>
+		<th>Name</th>
+		<th>Description</th>
+		<th>Full address</th>
+		<th>Phone number</th>
+	</tr>
+	
+	 
+	<% @restaurants_hash.each do |restaurant| %>
+	<tr>
+		<td><%= image_tag restaurant.image_url(:thumb)%></td>
+		<td><%= restaurant.name %></td>
+		<td><%= restaurant.description %></td>
+		<td><%= restaurant.full_address %></td>
+		<td><%= restaurant.phone_number %></td>	
+	</tr>
+	<% end %>
+	
+</table>
+
+<% end %>
+
+<%= link_to "Back", restaurants_path %>
+
+
+	
+	
+
+

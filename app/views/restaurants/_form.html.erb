@@ -1,0 +1,64 @@
+<%= form_for @restaurant, :html => {:multipart => true} do |f| %>
+<%= render 'shared/error_messages', target: @restaurant %>
+		
+<p>	
+	<%= f.label :name %>
+	<%= f.text_field :name %>
+</p>
+
+<p>
+	<%= f.label :description %>
+	<%= f.text_area :description %>
+</p>
+
+<p>
+	<% Category.all.each do |category| %>
+		<%= check_box_tag "Category[category_ids][]", category.id %>
+		<%= category.name %><br/>
+	<% end %>
+</p>
+
+<p>
+	<%= f.label :full_address %>
+	<%= f.text_field :full_address %>
+</p>
+
+<p>
+	<%= f.label :phone_number %>
+	<%= f.text_field :phone_number %>
+</p>
+
+<p>
+	<li>Upload an image</li>
+	<%= f.file_field :image %>
+</p>
+
+
+	
+<p>
+	<%= f.label :remote_image_url, "or image URL" %>
+	<%= f.text_field :remote_image_url %>
+</p>
+	
+<label>
+  <%= f.check_box :remove_image %>
+  Remove image
+</label>
+
+<p>
+	<li>Upload a menu</li>
+	<%= f.file_field :menu %>
+</p>
+<%= @restaurant.menu_url %>
+<p>
+
+</p>
+
+<p>
+	<%= f.submit%>
+</p>
+
+<% end %>
+
+
+

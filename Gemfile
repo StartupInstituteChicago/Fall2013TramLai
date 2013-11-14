@@ -1,13 +1,18 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.0'
 
+
+gem "devise"
+gem 'rails', '4.0.0'
 gem "therubyracer"
 gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
 gem "twitter-bootstrap-rails", :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
 
 gem 'dotenv-rails', :groups => [:development, :test]
+
+
+# gem "recaptcha", :require => "recaptcha/rails"      
 
 # Use sqlite3 as the database for Active Record
 group :development do
@@ -30,6 +35,7 @@ group :test do
   gem "capybara"
   gem "guard-rspec"
   gem "launchy"
+  gem "shoulda"
 end
 
 
