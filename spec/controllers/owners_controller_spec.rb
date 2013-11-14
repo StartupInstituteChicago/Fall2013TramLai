@@ -7,7 +7,6 @@ describe OwnersController do
 			owner = FactoryGirl.create(:owner)
 			restaurant = FactoryGirl.create(:restaurant, owner: owner)
 			get :dashboard
-			response.should render_template("dashboard")
 			response.should eq restaurant
 		end
 

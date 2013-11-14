@@ -11,6 +11,9 @@ gem "twitter-bootstrap-rails", :git => 'git://github.com/seyhunak/twitter-bootst
 
 gem 'dotenv-rails', :groups => [:development, :test]
 
+
+# gem "recaptcha", :require => "recaptcha/rails"      
+
 # Use sqlite3 as the database for Active Record
 group :development do
   gem 'sqlite3'

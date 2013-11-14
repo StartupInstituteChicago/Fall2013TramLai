@@ -1,16 +1,18 @@
 Simple_restaurant::Application.routes.draw do
  
   devise_for :owners
+
   resources :restaurants do
     get 'guest', on: :collection
     resources :reservations
+  resources :categories
   end
   root 'welcome#index'
 
   get "/owners/dashboard" => 'owners#dashboard'
+  get "/owners/profile" => 'owners#profile'
   
-  
-#   Prefix Verb   URI Pattern                                                 Controller#Action
+#  Prefix Verb   URI Pattern                                                 Controller#Action
 #           new_owner_session GET    /owners/sign_in(.:format)                                   devise/sessions#new
 #               owner_session POST   /owners/sign_in(.:format)                                   devise/sessions#create
 #       destroy_owner_session DELETE /owners/sign_out(.:format)                                  devise/sessions#destroy
@@ -35,6 +37,14 @@ Simple_restaurant::Application.routes.draw do
 #                             PATCH  /restaurants/:restaurant_id/reservations/:id(.:format)      reservations#update
 #                             PUT    /restaurants/:restaurant_id/reservations/:id(.:format)      reservations#update
 #                             DELETE /restaurants/:restaurant_id/reservations/:id(.:format)      reservations#destroy
+#       restaurant_categories GET    /restaurants/:restaurant_id/categories(.:format)            categories#index
+#                             POST   /restaurants/:restaurant_id/categories(.:format)            categories#create
+#     new_restaurant_category GET    /restaurants/:restaurant_id/categories/new(.:format)        categories#new
+#    edit_restaurant_category GET    /restaurants/:restaurant_id/categories/:id/edit(.:format)   categories#edit
+#         restaurant_category GET    /restaurants/:restaurant_id/categories/:id(.:format)        categories#show
+#                             PATCH  /restaurants/:restaurant_id/categories/:id(.:format)        categories#update
+#                             PUT    /restaurants/:restaurant_id/categories/:id(.:format)        categories#update
+#                             DELETE /restaurants/:restaurant_id/categories/:id(.:format)        categories#destroy
 #                 restaurants GET    /restaurants(.:format)                                      restaurants#index
 #                             POST   /restaurants(.:format)                                      restaurants#create
 #              new_restaurant GET    /restaurants/new(.:format)                                  restaurants#new
@@ -44,7 +54,8 @@ Simple_restaurant::Application.routes.draw do
 #                             PUT    /restaurants/:id(.:format)                                  restaurants#update
 #                             DELETE /restaurants/:id(.:format)                                  restaurants#destroy
 #                        root GET    /                                                           welcome#index
-
+#            owners_dashboard GET    /owners/dashboard(.:format)                                 owners#dashboard
+#              owners_profile GET    /owners/profile(.:format)                                   owners#profile
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

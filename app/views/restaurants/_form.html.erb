@@ -12,6 +12,13 @@
 </p>
 
 <p>
+	<% Category.all.each do |category| %>
+		<%= check_box_tag "Category[category_ids][]", category.id %>
+		<%= category.name %><br/>
+	<% end %>
+</p>
+
+<p>
 	<%= f.label :full_address %>
 	<%= f.text_field :full_address %>
 </p>
@@ -26,7 +33,7 @@
 	<%= f.file_field :image %>
 </p>
 
-<p>
+
 	
 <p>
 	<%= f.label :remote_image_url, "or image URL" %>
