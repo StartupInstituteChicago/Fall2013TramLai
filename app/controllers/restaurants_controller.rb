@@ -15,6 +15,7 @@ class RestaurantsController < ApplicationController
       @restaurant = Restaurant.new(restaurant_params)
       @restaurant.owner = current_owner
       if @restaurant.save
+        flash[:notice] = "Your restaurant was successfully created"
         redirect_to @restaurant
       else
         render 'new'
@@ -45,11 +46,13 @@ class RestaurantsController < ApplicationController
 
   
   def update
+    params[:restaurant][:category_ids] ||= []
     return not_sign_in unless owner_signed_in?
     @restaurant = Restaurant.find(params[:id])
     if current_owner == @restaurant.owner
       if @restaurant.update(restaurant_params)
-        redirect_to @restaurant
+        flash[:notice] = "Your restaurant was successfully updated"
+        redirect_to restaurant_path(@restaurant)
       else
         render 'edit'
       end
@@ -75,8 +78,7 @@ class RestaurantsController < ApplicationController
   private
   def restaurant_params
     params.require(:restaurant).permit(:name,:description,:full_address,:phone_number,
-      :image,:image_url, :remove_image,:remote_image_url,:menu, 
-      reservation: [:email, :requested_date_time, :message])
+      :image,:image_url, :remove_image,:remote_image_url,:menu, {:category_ids => []})
   end
 
   def not_sign_in

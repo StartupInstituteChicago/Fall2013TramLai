@@ -49,24 +49,40 @@ describe RestaurantsController do
   end
   
   describe "POST #create" do
+    before (:each) do 
+      @attr = {name: "McDonalds", 
+        description: "So fatty but cheap and convenient",
+         full_address: "1234 W Argyle",
+          phone_numer: "1234567890'"}
+    end
 
     it "should create a restaurant if owner signs in" do
       owner = FactoryGirl.create(:owner)
       sign_in owner
-      post :create, restaurant: {name: "McDonalds", description: "So fatty but cheap and convenient", full_address: "1234 W Argyle", phone_numer: "1234567890'"}
+      post :create, restaurant: @attr
       response.should be_success
     end
 
     it "should render template new if owner signed in but there were any invalid params" do
       owner = FactoryGirl.create(:owner)
       sign_in owner
-      post :create, restaurant: {name: "McDonalds", description: "So fatty but cheap and convenient", full_address: "1234 W Argyle", phone_numer: "12345690'"}
+      post :create, restaurant: {name: "McDonalds", 
+        description: "So fatty but cheap and convenient",
+         full_address: "1234 W Argyle", 
+         phone_numer: "12345690'"}
       response.should render_template(:new)
     end
 
     it "should redirect to the sign in page if owner does not sign in" do
-      post :create, restaurant: {name: "McDonalds", description: "So fatty but cheap and convenient", full_address: "1234 W Argyle", phone_numer: "12345690'"}
+      post :create, restaurant: @attr
       response.should redirect_to new_owner_session_path
+    end
+
+    it "should create a category for a restaurant if the category box gets checked" do
+      owner = FactoryGirl.create(:owner)
+      sign_in owner
+      post :create, restaurant: @attr, restaurant
+      expect(assigns[:restaurant.category_id]).to eq 1
     end
     
   end

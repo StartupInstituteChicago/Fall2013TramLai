@@ -19,6 +19,11 @@ ActiveRecord::Schema.define(version: 20131113233059) do
     t.datetime "updated_at"
   end
 
+  create_table "categories_restaurants", id: false, force: true do |t|
+    t.integer "category_id"
+    t.integer "restaurant_id"
+  end
+
   create_table "owners", force: true do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -39,10 +44,10 @@ ActiveRecord::Schema.define(version: 20131113233059) do
   add_index "owners", ["reset_password_token"], name: "index_owners_on_reset_password_token", unique: true
 
   create_table "reservations", force: true do |t|
-    t.string   "email"
-    t.datetime "requested_date_time"
-    t.text     "message"
-    t.integer  "restaurant_id"
+    t.string  "email"
+    t.string  "requested_date_time"
+    t.text    "message"
+    t.integer "restaurant_id"
   end
 
   create_table "restaurants", force: true do |t|

@@ -14,7 +14,7 @@ describe ReservationsController do
 		it "should create a reservation" do
 			post :create, restaurant_id: @restaurant, reservation: {email: "tramlai@gmail.com", 
 				requested_date_time: "12/12/2013", 
-				message: "I want to book"}
+				message: "I want to book this restaurant"}
 			response.should be_success
 		end
 	end

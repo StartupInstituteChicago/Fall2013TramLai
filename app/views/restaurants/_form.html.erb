@@ -13,11 +13,12 @@
 
 <p>
 	<% Category.all.each do |category| %>
-		<%= check_box_tag "Category[category_ids][]", category.id %>
-		<%= category.name %><br/>
+			<%= check_box_tag "restaurant[category_ids][]", category.id,
+			 @restaurant.categories.include?(category) %>
+			<%= category.name %><br>
 	<% end %>
 </p>
-
+	
 <p>
 	<%= f.label :full_address %>
 	<%= f.text_field :full_address %>
@@ -27,6 +28,7 @@
 	<%= f.label :phone_number %>
 	<%= f.text_field :phone_number %>
 </p>
+
 
 <p>
 	<li>Upload an image</li>
