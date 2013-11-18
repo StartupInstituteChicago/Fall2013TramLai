@@ -37,7 +37,8 @@
 		
 <p>
 <% if owner_signed_in? %>
-<%= link_to "Sign Out", destroy_owner_session_path, method: :delete %>
+<%= link_to "Sign Out", destroy_owner_session_path, method: :delete %><br>
+<%= link_to "Restaurant listing by categories", categories_path %>
 <% end %>
 </p>
 
