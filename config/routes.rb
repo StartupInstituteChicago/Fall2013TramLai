@@ -1,4 +1,4 @@
-Simple_restaurant::Application.routes.draw do
+  Simple_restaurant::Application.routes.draw do
  
   devise_for :owners
 
@@ -11,6 +11,10 @@ Simple_restaurant::Application.routes.draw do
 
   get "/owners/dashboard" => 'owners#dashboard'
   get "/owners/profile" => 'owners#profile'
+
+  get "/categories/index" => 'categories#index'
+
+  get "/categories/index/:category_id" => 'categories#show'
   
 #  Prefix Verb   URI Pattern                                                 Controller#Action
 #           new_owner_session GET    /owners/sign_in(.:format)                                   devise/sessions#new

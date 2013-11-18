@@ -14,7 +14,7 @@
 <p>
 	<% Category.all.each do |category| %>
 			<%= check_box_tag "restaurant[category_ids][]", category.id,
-			 @restaurant.categories.include?(category) %>
+			 @restaurant.categories.include?(category), id: dom_id(category) %>
 			<%= category.name %><br>
 	<% end %>
 </p>

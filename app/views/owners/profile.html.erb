@@ -3,3 +3,6 @@
 	<strong>Name: </strong><%= current_owner.name %><br/>	
 	<strong>Email address: </strong> <%= current_owner.email %>
 </p>
+
+<%= link_to "Back to your restaurant listing", action: :dashboard %>
+<%= link_to "Sign out", destroy_owner_session_path, method: :delete %>
