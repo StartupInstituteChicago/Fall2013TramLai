@@ -10,10 +10,10 @@ class OwnersController < ApplicationController
 	def dashboard
 		if owner_signed_in?
 			restaurants = Restaurant.all
-			@restaurants_hash = []
+			@restaurants_list = []
 			for restaurant in restaurants
 				if restaurant.owner == current_owner
-					@restaurants_hash.push(restaurant)
+					@restaurants_list.push(restaurant)
 				end
 			end
 			@restaurants_hash

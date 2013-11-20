@@ -1,18 +1,20 @@
   Simple_restaurant::Application.routes.draw do
  
-  devise_for :owners
+    devise_for :owners
 
-  resources :restaurants do
-    get 'guest', on: :collection
-    resources :reservations
-  end
+    resources :restaurants do
+      get 'guest', on: :collection
+      resources :reservations
+    end
+    
+    get "/categories/search" => 'categories#search'
+    resources :categories
+    
+    root 'welcome#index'
 
-  resources :categories
-  
-  root 'welcome#index'
-
-  get "/owners/dashboard" => 'owners#dashboard'
-  get "/owners/profile" => 'owners#profile'
+    get "/owners/dashboard" => 'owners#dashboard'
+    get "/owners/profile" => 'owners#profile'
+    
   end
 #     Prefix Verb   URI Pattern                                                 Controller#Action
 #           new_owner_session GET    /owners/sign_in(.:format)                                   devise/sessions#new

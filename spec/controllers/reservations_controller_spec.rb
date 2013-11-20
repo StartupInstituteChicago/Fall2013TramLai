@@ -15,7 +15,7 @@ describe ReservationsController do
 			post :create, restaurant_id: @restaurant, reservation: {email: "tramlai@gmail.com", 
 				requested_date_time: "12/12/2013", 
 				message: "I want to book this restaurant"}
-			response.should be_success
+			response.should redirect_to restaurant_reservation_path(@restaurant.id, 1)
 		end
 	end
 

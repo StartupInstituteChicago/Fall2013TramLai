@@ -10,4 +10,6 @@ describe Restaurant do
 	it {should ensure_length_of(:phone_number).is_equal_to(10)}
 	it {should validate_presence_of(:owner)}
 
+	
+
 end

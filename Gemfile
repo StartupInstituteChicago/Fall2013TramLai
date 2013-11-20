@@ -3,11 +3,11 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 
 
-gem "devise"
+gem "devise" #Sign in/Sign up
 gem 'rails', '4.0.0'
 gem "therubyracer"
 gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
-gem "twitter-bootstrap-rails", :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
+gem "twitter-bootstrap-rails", :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git' #Styling
 
 gem 'dotenv-rails', :groups => [:development, :test]
 
@@ -19,12 +19,12 @@ group :development do
   gem 'sqlite3'
 end
 
-gem "carrierwave"
+gem "carrierwave" #Upload image
 
-gem 'rmagick'
+gem 'rmagick' #Image process 
 
 group :production do
-  gem 'pg'
+  gem 'pg'  #ProgreSQL
   gem 'rails_12factor'
 end
 
@@ -35,10 +35,10 @@ group :test do
   gem "capybara"
   gem "guard-rspec"
   gem "launchy"
-  gem "shoulda"
+  gem "shoulda" #Testing - Should have
 end
 
-
+    
 
 # Use SCSS for stylesheets
 # gem 'sass-rails', '~> 4.0.0'

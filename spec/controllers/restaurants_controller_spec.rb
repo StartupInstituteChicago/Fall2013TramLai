@@ -38,7 +38,7 @@ describe RestaurantsController do
       owner = FactoryGirl.create(:owner)
       sign_in owner
       get :new 
-      expect(assigns(:restaurant)).to_not be_nil
+      expect(assigns[:restaurant]).to_not be_nil
     end
 
     it "should redirect to the sign in page if owner does not sign in" do
@@ -78,11 +78,15 @@ describe RestaurantsController do
       response.should redirect_to new_owner_session_path
     end
 
-    it "should create a category for a restaurant if the category box gets checked" do
+    it "should create a category for a restaurant if a category box gets checked" do
       owner = FactoryGirl.create(:owner)
+      category = FactoryGirl.create(:category)
       sign_in owner
-      post :create, restaurant: @attr, restaurant
-      expect(assigns[:restaurant.category_id]).to eq 1
+      post :create, restaurant: {name: "McDonalds", 
+        description: "So fatty but cheap and convenient",
+         full_address: "1234 W Argyle",
+          phone_numer: "1234567890'", :category_ids =>[category.id]}
+      expect(assigns[:restaurant].category_ids).to eq [category.id]
     end
     
   end
