@@ -25,7 +25,8 @@ gem 'rmagick' #Image process
 
 group :production do
   gem 'pg'  #ProgreSQL
-  gem 'rails_12factor'
+  gem 'rails_12factor' #Enables serving assets in production and setting your logger to standard out
+
 end
 
 group :test do

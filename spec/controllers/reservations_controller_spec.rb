@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe ReservationsController do
 	before (:each) do
-		@owner = FactoryGirl.create(:owner)
-		@restaurant = FactoryGirl.create(:restaurant,owner: @owner)
+		@user = FactoryGirl.create(:user)
+		@restaurant = FactoryGirl.create(:restaurant,user: @user)
 	end 
 
 	describe "GET #new" do

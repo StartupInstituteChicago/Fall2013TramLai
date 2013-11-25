@@ -23,7 +23,7 @@ class ReservationsController < ApplicationController
 
 	def index 
 		@restaurant = Restaurant.find(params[:restaurant_id])
-		if owner_signed_in? and current_owner == @restaurant.owner
+		if user_signed_in? and current_user == @restaurant.user
 			@reservations = @restaurant.reservations
 		else
 			flash[:notice] = "You are not authorized for this action"
@@ -47,7 +47,7 @@ class ReservationsController < ApplicationController
 	def destroy
 		@restaurant = Restaurant.find(params[:restaurant_id])
 		@reservation = @restaurant.reservations.find(params[:id])
-		if current_owner == @reservation.restaurant.owner
+		if current_user == @reservation.restaurant.user
 			@reservation.destroy
 			redirect_to restaurant_reservations_path(@reservation.restaurant_id)
 		else

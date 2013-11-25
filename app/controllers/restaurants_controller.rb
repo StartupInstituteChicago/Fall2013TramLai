@@ -1,19 +1,19 @@
 class RestaurantsController < ApplicationController
 
   def new
-    if owner_signed_in?
+    if user_signed_in? and current_user.role == 'owner'
       @restaurant = Restaurant.new
     else
-      flash[:notice] = "You need to sign in as an owner to create a restaurant"
-      redirect_to new_owner_session_path
+      flash[:notice] = "You need to be an owner to create a restaurant"
+      redirect_to new_user_session_path
     end
   end
   
   
   def create
-    if owner_signed_in?
+    if user_signed_in? and current_user.role == "owner"
       @restaurant = Restaurant.new(restaurant_params)
-      @restaurant.owner = current_owner
+      @restaurant.user = current_user
       if @restaurant.save
         flash[:notice] = "Your restaurant was successfully created"
         redirect_to @restaurant
@@ -21,7 +21,7 @@ class RestaurantsController < ApplicationController
         render 'new'
       end
     else
-      redirect_to new_owner_session_path
+      redirect_to new_user_session_path
     end
   end
   
@@ -36,9 +36,9 @@ class RestaurantsController < ApplicationController
   
 
   def edit
-    return not_sign_in unless owner_signed_in?
+    return not_sign_in unless (user_signed_in? and current_user == "owner")
     @restaurant = Restaurant.find(params[:id])
-    if current_owner != @restaurant.owner
+    if current_user != @restaurant.user
       flash[:notice] = "You're not authorized to edit this restaurant"
       redirect_to restaurants_path
     end
@@ -47,9 +47,9 @@ class RestaurantsController < ApplicationController
   
   def update
     params[:restaurant][:category_ids] ||= []
-    return not_sign_in unless owner_signed_in?
+    return not_sign_in unless (user_signed_in? and current_user == "owner")
     @restaurant = Restaurant.find(params[:id])
-    if current_owner == @restaurant.owner
+    if current_user == @restaurant.user
       if @restaurant.update(restaurant_params)
         flash[:notice] = "Your restaurant was successfully updated"
         redirect_to restaurant_path(@restaurant)
@@ -64,9 +64,9 @@ class RestaurantsController < ApplicationController
   
 
   def destroy
-    return not_sign_in unless owner_signed_in?
+    return not_sign_in unless (user_signed_in? and current_user == "owner")
     @restaurant = Restaurant.find(params[:id])
-    if current_owner == @restaurant.owner
+    if current_user == @restaurant.user
       @restaurant.destroy
       redirect_to restaurants_path
     else
@@ -82,8 +82,8 @@ class RestaurantsController < ApplicationController
   end
 
   def not_sign_in
-    flash[:notice] = "You need to sign in as this restaurant's owner to manage this restaurant"
-    redirect_to new_owner_session_path
+    flash[:notice] = "You need to sign in as this restaurant's user to manage this restaurant"
+    redirect_to new_user_session_path
   end
   
 end

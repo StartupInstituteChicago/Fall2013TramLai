@@ -1,15 +1,17 @@
-<% if owner_signed_in? %>
-<center><h3>Welcome, <%= current_owner.name %> !</h3></center>
-<h4>You have succesfully signed in</h4>
-
-<%= link_to "Manage your restaurant", restaurants_path%><br>
-<%= link_to "Sign Out", destroy_owner_session_path, :method => :delete %>
-
+<% if user_signed_in? %>
+  <center><h3>Welcome, <%= current_user.name %> !</h3></center>
+  <h4>You have succesfully signed</h4>
+  <% if current_user.owner? %>
+    <p><%= link_to "Manage your restaurant", restaurants_path%></p>
+  <% else %>
+    <p><%= link_to "Restaurant Listing", restaurants_path %></p>
+  <% end %>  
+  <%= link_to "Sign Out", destroy_user_session_path, :method => :delete %><br>
+  <%= link_to "Your profile", users_profile_path %>
 <% else %>
-
 <h1>Welcome to Restaurant Listing!!!</h1>
 <p><%= link_to "Restaurant Listing", restaurants_path %></p>
-<%= link_to "Sign In", new_owner_session_path, :method => :get %>
-<%= link_to "Sign up", new_owner_registration_path, :method => :get %>
+<%= link_to "Sign In", new_user_session_path, :method => :get %>
+<%= link_to "Sign up", new_user_registration_path, :method => :get %>
 
 <% end %>

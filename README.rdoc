@@ -1,2 +1,2 @@
 == README == 
-This is a simple restaurant application that allows users to see restaurant listings with their information and location. Owners of restaurants can sign in and manage their restaurants while members can make a reservation. 
+This is a simple restaurant application that allows users to see restaurant listings with their information and location. Users of restaurants can sign in and manage their restaurants while members can make a reservation. 

@@ -1,0 +1,8 @@
+<h1>Profile:</h1>
+<p>
+	<strong>Name: </strong><%= current_user.name %><br/>	
+	<strong>Email address: </strong> <%= current_user.email %>
+</p>
+
+<%= link_to "Back to your restaurant listing", action: :dashboard %><br/>
+<%= link_to "Sign out", destroy_user_session_path, method: :delete %>

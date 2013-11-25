@@ -10,7 +10,6 @@ class CategoriesController < ApplicationController
 	end
 
 	def search
-
 		if params[:search]
 			list_category_names = params[:search].split(',') #split the categories input into array
 			 
