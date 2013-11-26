@@ -17,7 +17,13 @@
 <%= link_to "Back", restaurants_path %>	
 <%= link_to "Download Menu"%><br/>
 
-<%= button_to "Click to Star Now", new_restaurant_star_path(@restaurant.id), method: :get %>
+<% if current_user.starred_restaurants.include?(@restaurant)  %>  
+    <h5>You have starred this restaurant. Do you want to unstar it?</h5><br>
+    <%= button_to "Unstar Me", star_path(current_user.stars.where(restaurant_id: @restaurant.id).first), method: :delete, data: {confirm: "Are you sure?"} %>
+<% else %>
+    <h5>You have not starred this restaurant. Do you want to star it? </h5> <br>
+    <%= button_to "Star Me", restaurant_stars_path(@restaurant.id), method: :post %>
+    <% end %>
 
 
 <%= link_to 'Edit', edit_restaurant_path(@restaurant) %>

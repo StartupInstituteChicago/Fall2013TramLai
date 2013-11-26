@@ -8,14 +8,22 @@ class StarsController < ApplicationController
 
   def create
     @restaurant = Restaurant.find(params[:restaurant_id])
-    @user = current_user
-    @star = @restaurant.stars.new(star_params)
+    @star = @restaurant.stars.new
+    @star.user_id = current_user.id
     if @star.save
       flash[:notice] = "You have successfully starred this restaurant"
       redirect_to star_path(@star.id)
     else
       render 'new'
     end
+  end
+
+
+  def destroy
+    @star = Star.find(params[:id])
+    @star.destroy
+    flash[:notice] = "You have successfully unstarred this restaurant"
+    redirect_to restaurants_path
   end
 
   def check_user_log_in?

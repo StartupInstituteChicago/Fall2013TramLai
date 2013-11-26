@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   has_many :restaurants
   has_many :reservations, through: :restaurant
   has_many :stars
-  has_many :starred_restaurants, through: :stars
+  has_many :starred_restaurants, through: :stars, source: :restaurant
   validates :email, presence: true, uniqueness: true
   validates :password, presence: true
   validates :name, presence: true
