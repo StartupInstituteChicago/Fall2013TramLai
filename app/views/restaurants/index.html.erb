@@ -1,14 +1,19 @@
+<div class= 'container'>
 <h1>Listing restaurants:</h1>
-<%= link_to "Adding New Restaurant", new_restaurant_path %>
+<%= link_to "Adding New Restaurant", new_restaurant_path, class: "btn btn-success" %> <br><br>
 
 
-<table>
+<table class = "table table-hover">
 	<tr>
 		<th>Image</th>
 		<th>Name</th>
 		<th>Description</th>
 		<th>Full address</th>
 		<th>Phone number</th>
+		<th></th>
+		<th></th>
+		<th></th>
+		<th></th>
 	</tr>
 	
 	 
@@ -19,11 +24,11 @@
 		<td><%= restaurant.description %></td>
 		<td><%= restaurant.full_address %></td>
 		<td><%= restaurant.phone_number %></td>
-		<td><%= link_to "Show", restaurant_path(restaurant) %></td>
+		<td><%= link_to "Show", restaurant_path(restaurant), method: :get, class: "btn btn-info" %></td>
 		<% if restaurant.user == current_user %>
-		<td><%= link_to "Edit", edit_restaurant_path(restaurant) %></td>
-		<td><%= link_to "Destroy", restaurant_path(restaurant), method: :delete, data: {confirm: "Are you sure?"} %></td>
-		<td><%= link_to "Show Reservations", restaurant_reservations_path(restaurant) %></td>
+		<td><%= link_to "Edit", edit_restaurant_path(restaurant), method: :get, class: "btn btn-info"%></td>
+		<td><%= link_to "Destroy", restaurant_path(restaurant), method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-danger"%></td>
+		<td><%= link_to "Show Reservations", restaurant_reservations_path(restaurant), method: :get, class: "btn btn-info" %></td>
 		
 		
 		
@@ -36,11 +41,11 @@
 
 		
 <p>
-<% if user_signed_in? %>
-<%= link_to "Sign Out", destroy_user_session_path, method: :delete %><br>
-<%= link_to "Restaurant listing by categories", categories_path %>
-<% end %>
+<%= link_to "Restaurant listing by categories", categories_path, class: "btn btn-default"%>
 </p>
+
+</div>
+
 
 	
 	

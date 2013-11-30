@@ -1,0 +1,42 @@
+<div class = 'container'> 
+  <% if @starred_restaurant_list.empty? %>
+  <h3> You have not starred any restaurant </h3>
+  <% else %>
+  <h1>Your starred restaurant list:</h1>
+
+
+  <table class = "table">
+    <tr>
+      <th>Image</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Full address</th>
+      <th>Phone number</th>
+      <th></th>
+    </tr>
+    
+     
+    <% @starred_restaurant_list.each do |restaurant| %>
+    <tr>
+      <td><%= image_tag restaurant.image_url(:thumb)%></td>
+      <td><%= restaurant.name %></td>
+      <td><%= restaurant.description %></td>
+      <td><%= restaurant.full_address %></td>
+      <td><%= restaurant.phone_number %></td> 
+      <td><%= link_to "Show", restaurant_path(restaurant), class: "btn btn-info" %></td>
+    </tr>
+    <% end %>
+    
+  </table>
+
+  <% end %>
+
+  <%= link_to "Back", restaurants_path, class: "btn btn-primary" %>
+  
+</div>
+
+
+  
+  
+
+

@@ -1,14 +1,11 @@
 class UsersController < ApplicationController
 
 	def profile 
-		unless user_signed_in?
-			flash[:notice] = "You need to sign in as user to look at your restaurant"
-			redirect_to new_user_session_path
-		end
+		user_not_signed_in
 	end
 
 	def dashboard
-		if user_signed_in?
+		if user_signed_in? and current_user.owner?
 			restaurants = Restaurant.all
 			@restaurants_list = []
 			for restaurant in restaurants
@@ -18,10 +15,26 @@ class UsersController < ApplicationController
 			end
 			@restaurants_list
 		else
-			flash[:notice] = "You need to sign in as user to look at your restaurant"
+			user_not_signed_in
+		end
+	end
+
+	def my_stars
+		if user_signed_in?
+			@starred_restaurant_list = current_user.starred_restaurants
+		else
+			user_not_signed_in
+		end
+	end
+
+	def user_not_signed_in
+		unless user_signed_in?
+			flash[:notice] = "You are currently not signed in. Please sign in first"
 			redirect_to new_user_session_path
 		end
 	end
+
+
 	
 
 end

@@ -7,6 +7,9 @@ Simple_restaurant::Application.routes.draw do
     resources :stars, except: [:show, :edit, :update, :destroy]
   end
 
+  get "/users/dashboard" => 'users#dashboard'
+  get "/users/profile" => 'users#profile'
+  get "users/my-stars" =>'users#my_stars'
   resources :users
   resources :stars, only: [:show, :edit, :update, :destroy]
   get "/categories/search" => 'categories#search'
@@ -14,8 +17,8 @@ Simple_restaurant::Application.routes.draw do
 
 
 
-  get "/users/dashboard" => 'users#dashboard'
-  get "/users/profile/" => 'users#profile'
+ 
+  
     
 end
                         

@@ -1,10 +1,12 @@
-<% if @restaurants.empty? %>
-	<h3>There is no restaurant in this category</h3>
-<% else %>
-	<h1><%= pluralize(@restaurants.count, "restaurant" )%> in this category: </h1>
-		<%  for restaurant in @restaurants %>
-			<li><%= restaurant.name %></li>
-		<% end %>
-<% end %>
-<%= link_to "Back to restaurant listing", restaurants_path %> <br>
-<%= link_to "Back to restaurant listing by category", categories_path %>
+<div class = "container"> 
+  <% if @restaurants.empty? %>
+  	<h3>There is no restaurant in this category</h3>
+  <% else %>
+  	<h1><%= pluralize(@restaurants.count, "restaurant" )%> in this category: </h1>
+  		<%  for restaurant in @restaurants %>
+  			<li><%= link_to restaurant.name, restaurant_path(restaurant) %></li>
+  		<% end %>
+  <% end %>
+  <%= link_to "Back to restaurant listing", restaurants_path, class: "btn btn-default" %>
+  <%= link_to "Back to restaurant listing by category", categories_path, class: "btn btn-default" %>
+</div>

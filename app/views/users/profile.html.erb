@@ -1,8 +1,17 @@
-<h1>Profile:</h1>
-<p>
-	<strong>Name: </strong><%= current_user.name %><br/>	
-	<strong>Email address: </strong> <%= current_user.email %>
-</p>
+<div class = 'container'>
+  <h1>Profile:</h1>
+    <p>
+    	<strong>Name: </strong><%= current_user.name %><br/>	
+    	<strong>Email address: </strong> <%= current_user.email %><br/>
+      <strong>Being a member since:</strong> <%= current_user.created_at %> <br/> 
+      <strong>Role:</strong> <%= current_user.role %>
+      <% if current_user.owner? %>
+        <%= button_to "Manage my restaurant", users_dashboard_path, method: :get, class: "btn btn-default"%><br/>
+      <% else %>
+        <%= button_to "Back to restaurant listing", restaurants_path, method: :get, class: "btn btn-default" %><br/>
+      <% end %>     
+      <div class = "btn btn-default"><a href="/users/my-stars">Manage my starred restaurant</a></div>
+    </p>
 
-<%= link_to "Back to your restaurant listing", action: :dashboard %><br/>
-<%= link_to "Sign out", destroy_user_session_path, method: :delete %>
+  
+</div>

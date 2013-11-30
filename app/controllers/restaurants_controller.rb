@@ -36,7 +36,7 @@ class RestaurantsController < ApplicationController
   
 
   def edit
-    return not_sign_in unless (user_signed_in? and current_user == "owner")
+    return not_sign_in unless user_signed_in? 
     @restaurant = Restaurant.find(params[:id])
     if current_user != @restaurant.user
       flash[:notice] = "You're not authorized to edit this restaurant"
@@ -47,7 +47,7 @@ class RestaurantsController < ApplicationController
   
   def update
     params[:restaurant][:category_ids] ||= []
-    return not_sign_in unless (user_signed_in? and current_user == "owner")
+    return not_sign_in unless user_signed_in? 
     @restaurant = Restaurant.find(params[:id])
     if current_user == @restaurant.user
       if @restaurant.update(restaurant_params)
@@ -64,7 +64,7 @@ class RestaurantsController < ApplicationController
   
 
   def destroy
-    return not_sign_in unless (user_signed_in? and current_user == "owner")
+    return not_sign_in unless user_signed_in?
     @restaurant = Restaurant.find(params[:id])
     if current_user == @restaurant.user
       @restaurant.destroy

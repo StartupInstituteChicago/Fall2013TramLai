@@ -1,39 +1,47 @@
-<% if @restaurants_list.empty? %>
-<h3> You currently don't have any restaurant </h3>
-<% else %>
-<h1>Your restaurant:</h1>
-
-
-<table>
-	<tr>
-		<th>Image</th>
-		<th>Name</th>
-		<th>Description</th>
-		<th>Full address</th>
-		<th>Phone number</th>
-	</tr>
+<div class = "container">
 	
-	 
-	<% @restaurants_list.each do |restaurant| %>
-	<tr>
-		<td><%= image_tag restaurant.image_url(:thumb)%></td>
-		<td><%= restaurant.name %></td>
-		<td><%= restaurant.description %></td>
-		<td><%= restaurant.full_address %></td>
-		<td><%= restaurant.phone_number %></td>	
-		<td><%= link_to "Show", restaurant_path(restaurant) %></td>
-		<td><%= link_to "Edit", edit_restaurant_path(restaurant) %></td>
-		<td><%= link_to "Destroy", restaurant_path(restaurant), method: :delete, data: {confirm: "Are you sure?"} %></td>
-		<td><%= link_to "Show Reservations", restaurant_reservations_path(restaurant) %></td>
-	</tr>
+	<% if @restaurants_list.empty? %>
+	<h3> You currently don't have any restaurant </h3>
+	<% else %>
+	<h1>Your restaurant:</h1>
+
+	<table class = "table table-hover">
+		<tr>
+			<th>Image</th>
+			<th>Name</th>
+			<th>Description</th>
+			<th>Full address</th>
+			<th>Phone number</th>
+			<th>Stars </th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+		</tr>
+		
+		 
+		<% @restaurants_list.each do |restaurant| %>
+		<tr>
+			<td><%= image_tag restaurant.image_url(:thumb)%></td>
+			<td><%= restaurant.name %></td>
+			<td><%= restaurant.description %></td>
+			<td><%= restaurant.full_address %></td>
+			<td><%= restaurant.phone_number %></td>	
+			<td><%= restaurant.stars.size %></td>
+			<td><%= button_to "Show", restaurant_path(restaurant) %></td>
+			<td><%= button_to "Edit", edit_restaurant_path(restaurant) %></td>
+			<td><%= button_to "Destroy", restaurant_path(restaurant), method: :delete, data: {confirm: "Are you sure?"} %></td>
+			<td><%= button_to "Show Reservations", restaurant_reservations_path(restaurant) %></td>
+		</tr>
+		<% end %>
+		
+	</table>
+
 	<% end %>
-	
-</table>
 
-<% end %>
+	<%= link_to "Back", restaurants_path, class: "btn btn-default" %>
 
-<%= link_to "Back", restaurants_path %>
-
+</div>
 
 	
 	

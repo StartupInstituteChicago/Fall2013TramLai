@@ -1,33 +1,71 @@
-<%= image_tag @restaurant.image_url(:masthead) %> <br>
-<%= link_to "Edit image", edit_restaurant_path(@restaurant)%> <br>
+<div class = "container">
+    <%= image_tag @restaurant.image_url(:masthead) %> <br>
+    <% if user_signed_in? and @restaurant.user == current_user %>
+    <%= link_to "Edit image", edit_restaurant_path(@restaurant), method: :get, class: "btn btn-default"%> <br> <br>
+    <% end %>
+    
+    <table class = "table">
+      <tr>
+        <td><strong>Name: </strong></td>
+        <td><%= @restaurant.name %></td>
+      </tr>
+      
+      <tr>
+        <td><strong>Description: </strong></td>
+        <td><%= @restaurant.description %></td>
+      </tr>
+      
+      <tr>
+        <td><strong>Full Adress: </strong></td>
+        <td><%= @restaurant.full_address %></td>
+      </tr>
+      
+      <tr>
+        <td><strong>Phone number: </strong> </td>
+        <td><%= @restaurant.phone_number %></td>
+      </tr>
+      
+      <tr>
+        <td><strong>Category: </strong></td>
+        <td>
+          <% if @restaurant.categories.empty? %>
+            <li>None</li>
+          <% else %>
+            <% @restaurant.categories.each do |category| %>
+              <li><%= category.name %></li>
+            <% end %>
+          <% end %>
+        </td>
+      </tr>
+      
+      
+      <tr>
+        <td><strong># of Stars: </strong> </td>
+        <td> <%= @restaurant.starred_by.size %></td>
+      </tr>
 
-<strong>User's name:</strong><%= @restaurant.user.name%><br>
-<strong>Name: </strong> <%= @restaurant.name %><br>
-<strong>Description: </strong> <%= @restaurant.description %><br>
-<strong>Full Adress: </strong> <%= @restaurant.full_address %><br>
-<strong>Phone number: </strong> <%= @restaurant.phone_number %><br>
-<strong>Category: </strong>
-		<% @restaurant.categories.each do |category| %>
-			<li><%= category.name %></li>
-		<% end %>
-		
-<br>
-<%= image_tag "http://maps.googleapis.com/maps/api/staticmap?center=#{@restaurant.full_address}&markers=color:red|#{@restaurant.full_address}&zoom=14&size=200x200&sensor=false&key=AIzaSyDfXK7ij2akV_gTsZfSietmxzxsa5qBtCo" %> <br>
-<h3><%= link_to "Make a reservation", new_restaurant_reservation_path(@restaurant) %></h3>
-<%= link_to "Back", restaurants_path %>	
-<%= link_to "Download Menu"%><br/>
-
-<% if current_user.starred_restaurants.include?(@restaurant)  %>  
-    <h5>You have starred this restaurant. Do you want to unstar it?</h5><br>
-    <%= button_to "Unstar Me", star_path(current_user.stars.where(restaurant_id: @restaurant.id).first), method: :delete, data: {confirm: "Are you sure?"} %>
-<% else %>
-    <h5>You have not starred this restaurant. Do you want to star it? </h5> <br>
-    <%= button_to "Star Me", restaurant_stars_path(@restaurant.id), method: :post %>
+   </table>
+   
+    <% if user_signed_in? and current_user.starred_restaurants.include?(@restaurant)  %>  
+        <h5>You have starred this restaurant. Do you want to unstar it now?</h5>
+        <%= button_to "Unstar Me", star_path(current_user.stars.where(restaurant_id: @restaurant.id).first), method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-primary" %>
+    <% else %>
+        <h5>You have not starred this restaurant. Do you want to star it now? </h5>
+        <%= button_to "Star Me", restaurant_stars_path(@restaurant.id), method: :post, class: "btn btn-primary" %>
     <% end %>
 
-
-<%= link_to 'Edit', edit_restaurant_path(@restaurant) %>
-<%= link_to 'Destroy', restaurant_path(@restaurant), method: :delete, data: {confirm: "Are you sure?"} %>
+  
+    <h3><%= link_to "Make a reservation", new_restaurant_reservation_path(@restaurant), class: "btn btn-success" %></h3>
+    <%= link_to "Back", restaurants_path, method: :get, class: 'btn btn-default' %> 
+    <% if user_signed_in? and @restaurant.user == current_user %>
+      <%= link_to 'Edit', edit_restaurant_path(@restaurant), method: :get, class: "btn btn-default" %>
+      <%= link_to 'Destroy', restaurant_path(@restaurant), method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-danger" %>
+    <% end %>
+    <br>
+    <p>
+    <%= image_tag "http://maps.googleapis.com/maps/api/staticmap?center=#{@restaurant.full_address}&markers=color:red|#{@restaurant.full_address}&zoom=14&size=200x200&sensor=false&key=AIzaSyDfXK7ij2akV_gTsZfSietmxzxsa5qBtCo" %> 
+    </p>
+</div>
 
 
 

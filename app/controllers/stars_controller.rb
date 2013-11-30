@@ -12,7 +12,7 @@ class StarsController < ApplicationController
     @star.user_id = current_user.id
     if @star.save
       flash[:notice] = "You have successfully starred this restaurant"
-      redirect_to star_path(@star.id)
+      redirect_to restaurant_path(@restaurant.id)
     else
       render 'new'
     end
